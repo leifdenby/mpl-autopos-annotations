@@ -39,7 +39,6 @@ def _norm(pts, mean=None, scaling=None, target_scale=None):
 def _denorm(x, mean, scaling):
     return (x - 0.5)*scaling + mean
 
-
 def _coulomb_force(xi, xj):
     dx = xj[0] - xi[0]
     dy = xj[1] - xi[1]
@@ -51,7 +50,6 @@ def _coulomb_force(xi, xj):
     else:
         const = beta / (ds2 * ds)
     return [-const * dx, -const * dy]
-
 
 def _hooke_force(xi, xj, dij):
     dx = xj[0] - xi[0]
@@ -106,7 +104,7 @@ def calc_offset_points(pts, scale=0.2, callback=None):
 
     e_increasing = True
     e_old = 0.0
-    while False:
+    while True:
         x, v, e_kin = update(x, v)
 
         if e_kin > e_old:
@@ -126,7 +124,6 @@ def calc_offset_points(pts, scale=0.2, callback=None):
             callback(x, x_fixed)
 
     return _denorm(x, mean=pts_mean, scaling=pts_scaling)
-
 
 def interactive_calc_offset_points(pts, scale=0.2):
     import Tkinter
