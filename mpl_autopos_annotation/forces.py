@@ -2,6 +2,8 @@
 """
 Create offset label points using forced-directed graph drawing
 """
+import math
+
 import numpy as np
 
 from convex_hull import calc_point_offsets as ch_calc_point_offsets
@@ -60,7 +62,6 @@ def _hooke_force(xi, xj, dij):
     return [const * dx, const * dy]
 
 def calc_offset_points(pts, scale=0.2, callback=None):
-    dij = scale
 
     def update(x, v):
         x_new = np.copy(x)
@@ -95,6 +96,8 @@ def calc_offset_points(pts, scale=0.2, callback=None):
 
     x_fixed, pts_mean, pts_scaling = _norm(pts, target_scale=scale*4.)
     x = ch_calc_point_offsets(x_fixed, scale=scale)
+
+    dij = scale*4/np.max(pts_scaling)
 
     if callback is not None:
         callback(x, x_fixed)
@@ -204,4 +207,4 @@ if __name__ == "__main__":
         [ 0.767785, 88.731781]
     ])
 
-    interactive_calc_offset_points(pts=pts, scale=1.0)
+    interactive_calc_offset_points(pts=pts, scale=0.5)
