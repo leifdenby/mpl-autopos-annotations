@@ -2,11 +2,6 @@
 """
 Create offset label points using forced-directed graph drawing
 """
-
-import Tkinter
-import random
-import math
-
 import numpy as np
 
 from convex_hull import calc_point_offsets as ch_calc_point_offsets
@@ -134,6 +129,8 @@ def calc_offset_points(pts, scale=0.2, callback=None):
 
 
 def interactive_calc_offset_points(pts, scale=0.2):
+    import Tkinter
+
     # first call the algorithm to collect the points as they evolve
     results = []
     def callback(x, x_fixed):
