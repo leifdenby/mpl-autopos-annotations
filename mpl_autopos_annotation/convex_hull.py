@@ -45,6 +45,7 @@ def calc_point_offsets(points, scale=0.2, show_plot=False):
     points_s = np.array([x_s, y_s]).T
 
     lx, ly = np.max(x_s)-np.min(x_s), np.max(y_s)-np.min(y_s)
+    l = np.sqrt(lx**2. + ly**2.)
 
     offset_points = []
 
@@ -64,13 +65,13 @@ def calc_point_offsets(points, scale=0.2, show_plot=False):
             plt.plot(point_nearest[0], point_nearest[1], marker='s', color='red')
 
         d = points_s[k+1] - points_s[k-1]
-        d[0] /= lx
-        d[1] /= ly
+        d[0] /= l
+        d[1] /= l
         d = np.array([d[1], -d[0]])
         d /= np.linalg.norm(d)
 
-        d[0] *= scale*lx
-        d[1] *= scale*ly
+        d[0] *= scale*l
+        d[1] *= scale*l
 
         point_outside = point_nearest + d
 
